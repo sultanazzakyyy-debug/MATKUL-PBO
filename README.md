@@ -80,7 +80,7 @@ src/main/java/
 
 ### a. Superclass `Pesawat`
 
-Class ini nampung semua atribut dan method yang **dipakai bareng-bareng** sama ketiga kelas layanan. Tiga method di bawah sengaja dibikin di sini supaya bisa ditulis ulang (override) sama subclass-nya:
+Class ini nampung semua atribut dan method yang **dipakai bareng-bareng** sama ketiga kelas layanan.
 
 ```java
 public class Pesawat {
@@ -105,8 +105,8 @@ public class Pesawat {
 
     public void tampilkanInfo() {
         System.out.println("Kode      : " + kodePenerbangan);
-        System.out.println("Kelas     : " + getKelasLayanan());   // ← versi subclass yang jalan
-        System.out.println("Fasilitas : " + getFasilitas());      // ← versi subclass yang jalan
+        System.out.println("Kelas     : " + getKelasLayanan());  
+        System.out.println("Fasilitas : " + getFasilitas());     
         System.out.printf("Harga     : Rp%,.0f%n", hitungHargaTiket());
     }
 }
@@ -117,26 +117,23 @@ public class Pesawat {
 Ketiga subclass polanya sama: pakai kata kunci **`extends`** buat mewarisi `Pesawat`, dan constructor-nya cuma nerusin parameter ke induknya pakai **`super(...)`** — atributnya nggak perlu ditulis ulang.
 
 ```java
-public class Pesawatbisnis extends Pesawat {          // ← INHERITANCE
+public class Pesawatbisnis extends Pesawat {        
 
     public Pesawatbisnis(String kodePenerbangan, String maskapai,
                          String asal, String tujuan, double hargaDasar) {
 
-        super(kodePenerbangan, maskapai,               // ← panggil constructor superclass
+        super(kodePenerbangan, maskapai,             
               asal, tujuan, hargaDasar);
     }
 
-    @Override
-    public double hitungHargaTiket() {                 // ← OVERRIDING
+    public double hitungHargaTiket() {               
         return getHargaDasar() + (getHargaDasar() * 0.6);
     }
 
-    @Override
     public String getKelasLayanan() {
         return "Bisnis";
     }
 
-    @Override
     public String getFasilitas() {
         return "Bagasi dan Lounge";
     }
@@ -187,10 +184,10 @@ Hal yang sama juga kepakai di class `Tiket`, yang nyimpen atribut bertipe superc
 
 ```java
 public class Tiket {
-    private Pesawat pesawat;   // ← tipe superclass, isinya bisa subclass apa saja
+    private Pesawat pesawat;   // 
 
     public void cetakTiket() {
-        pesawat.tampilkanInfo();  // ← otomatis nyesuaiin kelas layanan tiketnya
+        pesawat.tampilkanInfo();  //
     }
 }
 ```
