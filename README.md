@@ -17,18 +17,7 @@
 
 Studi kasus yang dipilih adalah **Sistem Pemesanan Tiket Pesawat** berbasis command line.
 
-Alasan milih tema ini: di dunia nyata, satu penerbangan bisa punya beberapa kelas layanan (Ekonomi, Bisnis, First Class) yang datanya sebenarnya mirip — sama-sama punya kode penerbangan, maskapai, asal, dan tujuan — tapi **cara ngitung harga sama fasilitasnya beda-beda**. Kasus kayak gini pas banget buat nerapin inheritance, karena data yang samanya bisa ditaruh di satu class induk, dan yang bedanya dipisah ke class anak masing-masing.
-
-Programnya sengaja dibikin sederhana, fokus ke **Create** dan **Read** aja:
-
-| Menu | Fungsi | Jenis |
-|---|---|---|
-| 1 | Lihat daftar penerbangan yang tersedia | Read |
-| 2 | Pesan tiket (bikin objek `Penumpang` + `Tiket` baru) | **Create** |
-| 3 | Lihat semua tiket yang sudah dipesan | **Read** |
-| 0 | Keluar dari program | — |
-
-Data 3 penerbangan sudah di-*load* otomatis saat program dijalankan. Seluruh data disimpan sementara di `ArrayList` selama program berjalan — kalau program ditutup, datanya hilang (belum disimpan ke file atau database).
+Alasan milih tema ini: di dalam dunia nyata, satu penerbangan bisa punya beberapa kelas layanan (Ekonomi, Bisnis, First Class) yang datanya sebenarnya mirip sama-sama punya kode penerbangan, maskapai, asal, dan tujuan tapi **cara ngitung harga sama fasilitasnya beda-beda**. Kasus seperti ini pas banget untuk nerapin inheritance, karena data yang samanya bisa ditaruh di satu class induk, dan yang bedanya dipisah ke class anak masing-masing.
 
 ---
 
@@ -222,7 +211,7 @@ Tampilan pertama begitu program di-*run*. Ada 4 pilihan menu, dan program nunggu
 
 <img width="432" height="88" alt="Opsi 1" src="https://github.com/user-attachments/assets/e65e6951-d06d-4f6b-9909-9157affe6d4d" />
 
-Muncul 3 penerbangan yang di-*load* di awal. Perhatiin kolom **Kelas** dan **Harga**: GA-201 (Ekonomi) harganya sama persis dengan harga dasar Rp1.200.000, sementara SJ-777 (First Class) harganya naik jadi Rp5.000.000 — padahal baris kode yang nyetak keduanya sama. Ini bukti polymorphism-nya jalan.
+Muncul 3 penerbangan yang di-*load* di awal. Perhatiin kolom **Kelas** dan **Harga**: GA-201 (Ekonomi) harganya sama persis dengan harga dasar Rp1.200.000, sementara SJ-777 (First Class) harganya naik jadi Rp5.000.000 - padahal baris kode yang nyetak keduanya sama. Ini bukti polymorphism-nya jalan.
 
 ### c. Menu 2 — Pesan Tiket (Create)
 
