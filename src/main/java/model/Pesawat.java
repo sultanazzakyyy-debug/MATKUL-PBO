@@ -9,69 +9,60 @@ package model;
  * @author Adbang 18
  */
 public class Pesawat {
-
+ 
     private String kodePenerbangan;
     private String maskapai;
     private String asal;
     private String tujuan;
-    private String waktuBerangkat;
     private double hargaDasar;
-
+ 
     public Pesawat(String kodePenerbangan, String maskapai,
-                   String asal, String tujuan,
-                   String waktuBerangkat, double hargaDasar) {
-
+                   String asal, String tujuan, double hargaDasar) {
         this.kodePenerbangan = kodePenerbangan;
         this.maskapai = maskapai;
         this.asal = asal;
         this.tujuan = tujuan;
-        this.waktuBerangkat = waktuBerangkat;
         this.hargaDasar = hargaDasar;
     }
-
+ 
     public String getKodePenerbangan() {
         return kodePenerbangan;
     }
-
+ 
     public String getMaskapai() {
         return maskapai;
     }
-
+ 
     public String getAsal() {
         return asal;
     }
-
+ 
     public String getTujuan() {
         return tujuan;
     }
-
-    public String getWaktuBerangkat() {
-        return waktuBerangkat;
-    }
-
+ 
     public double getHargaDasar() {
         return hargaDasar;
     }
-
+ 
     public double hitungHargaTiket() {
         return hargaDasar;
     }
-
+ 
     public String getKelasLayanan() {
         return "Umum";
     }
-
+ 
     public String getFasilitas() {
         return "-";
     }
-
-    public void tampilkanInfoPenerbangan() {
+ 
+    public void tampilkanInfo() {
         System.out.println("Kode      : " + kodePenerbangan);
         System.out.println("Maskapai  : " + maskapai);
-        System.out.println("Asal      : " + asal);
-        System.out.println("Tujuan    : " + tujuan);
-        System.out.println("Berangkat : " + waktuBerangkat);
+        System.out.println("Rute      : " + asal + " -> " + tujuan);
         System.out.println("Kelas     : " + getKelasLayanan());
-        System.out.println("Harga     : Rp" + hitungHargaTiket());
+        System.out.println("Fasilitas : " + getFasilitas());
+        System.out.printf("Harga     : Rp%,.0f%n", hitungHargaTiket());
     }
 }

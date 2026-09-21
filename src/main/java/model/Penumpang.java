@@ -9,13 +9,12 @@ package model;
  * @author Adbang 18
  */
 public class Penumpang {
+ 
     private String nama;
-    private String nik;
     private String noHp;
  
-    public Penumpang(String nama, String nik, String noHp) {
+    public Penumpang(String nama, String noHp) {
         this.nama = nama;
-        this.nik = nik;
         this.noHp = noHp;
     }
  
@@ -23,13 +22,8 @@ public class Penumpang {
         return nama;
     }
  
-    public String getNik() {
-        return nik;
-    }
- 
     public String getNoHp() {
         return noHp;
     }
- 
 }
  

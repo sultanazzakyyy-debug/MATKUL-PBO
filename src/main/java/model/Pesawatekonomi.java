@@ -9,27 +9,20 @@ package model;
  * @author Adbang 18
  */
 public class Pesawatekonomi extends Pesawat {
-
-    public Pesawatekonomi(String kodePenerbangan,
-                          String maskapai,
-                          String asal,
-                          String tujuan,
-                          String waktuBerangkat,
-                          double hargaDasar) {
-
-        super(kodePenerbangan, maskapai,
-              asal, tujuan,
-              waktuBerangkat, hargaDasar);
+ 
+    public Pesawatekonomi(String kodePenerbangan, String maskapai,
+                          String asal, String tujuan, double hargaDasar) {
+        super(kodePenerbangan, maskapai, asal, tujuan, hargaDasar);
     }
-
+ 
     public double hitungHargaTiket() {
         return getHargaDasar();
     }
-
+ 
     public String getKelasLayanan() {
         return "Ekonomi";
     }
-
+ 
     public String getFasilitas() {
         return "Snack";
     }

@@ -3,125 +3,110 @@
  */
 
 package com.mycompany.main;
+import java.util.ArrayList;
 import java.util.Scanner;
 import model.Penumpang;
 import model.Pesawat;
 import model.Pesawatbisnis;
 import model.Pesawatekonomi;
 import model.Pesawatfirstclass;
-import model.Sistempemesanan;
 import model.Tiket;
-
-/**
- *
- * @author Adbang 18
- */
+ 
 public class Main {
  
     private static final Scanner scanner = new Scanner(System.in);
-    private static final Sistempemesanan sistem = new Sistempemesanan();
+    private static final ArrayList<Pesawat> daftarPenerbangan = new ArrayList<>();
+    private static final ArrayList<Tiket> daftarTiket = new ArrayList<>();
  
     public static void main(String[] args) {
-        inisialisasiDataPenerbangan();
+        isiDataPenerbangan();
  
         boolean berjalan = true;
         while (berjalan) {
-            tampilkanMenu();
-            int pilihan = bacaPilihanMenu();
+            System.out.println("\n===== SISTEM PEMESANAN TIKET PESAWAT =====");
+            System.out.println("1. Lihat Daftar Penerbangan");
+            System.out.println("2. Pesan Tiket");
+            System.out.println("3. Lihat Semua Tiket");
+            System.out.println("0. Keluar");
+            System.out.print("Pilih menu: ");
+ 
+            int pilihan = scanner.nextInt();
+            scanner.nextLine();
  
             switch (pilihan) {
-                case 1 -> sistem.tampilkanDaftarPenerbangan();
-                case 2 -> prosesPemesananTiket();
-                case 3 -> sistem.tampilkanSemuaTiket();
-                case 4 -> prosesLihatDetailTiket();
-                case 5 -> prosesBatalkanTiket();
+                case 1 -> tampilkanPenerbangan();
+                case 2 -> pesanTiket();
+                case 3 -> tampilkanSemuaTiket();
                 case 0 -> {
                     berjalan = false;
-                    System.out.println("\nTerima kasih telah menggunakan Sistem Pemesanan Tiket Pesawat!");
+                    System.out.println("\nTerima kasih telah menggunakan sistem ini!");
                 }
-                default -> System.out.println("\nPilihan tidak valid, silakan coba lagi.");
+                default -> System.out.println("\nPilihan tidak valid!");
             }
         }
         scanner.close();
     }
  
-    // Data awal contoh: 3 penerbangan dengan 3 kelas layanan berbeda (subclass berbeda)
-    private static void inisialisasiDataPenerbangan() {
-        sistem.tambahPenerbangan(new Pesawatekonomi("GA-201", "Garuda Indonesia",
-                "Jakarta", "Samarinda", "07:00", 1200000));
-        sistem.tambahPenerbangan(new Pesawatbisnis("QG-450", "Citilink",
-                "Surabaya", "Balikpapan", "09:30", 1500000));
-        sistem.tambahPenerbangan(new Pesawatfirstclass("SJ-777", "Sriwijaya Air",
-                "Jakarta", "Denpasar", "13:15", 2000000));
-        sistem.tambahPenerbangan(new Pesawatekonomi("JT-118", "Lion Air",
-                "Medan", "Jakarta", "16:45", 950000));
+    private static void isiDataPenerbangan() {
+        daftarPenerbangan.add(new Pesawatekonomi("GA-201", "Garuda Indonesia",
+                "Jakarta", "Samarinda", 1200000));
+        daftarPenerbangan.add(new Pesawatbisnis("QG-450", "Citilink",
+                "Surabaya", "Balikpapan", 1500000));
+        daftarPenerbangan.add(new Pesawatfirstclass("SJ-777", "Sriwijaya Air",
+                "Jakarta", "Denpasar", 2000000));
     }
  
-    private static void tampilkanMenu() {
-        System.out.println("\n============ SISTEM PEMESANAN TIKET PESAWAT ============");
-        System.out.println("1. Lihat Daftar Penerbangan");
-        System.out.println("2. Pesan Tiket");
-        System.out.println("3. Lihat Semua Tiket");
-        System.out.println("4. Lihat Detail / Cetak Tiket");
-        System.out.println("5. Batalkan Tiket");
-        System.out.println("0. Keluar");
-        System.out.println("==========================================================");
-        System.out.print("Pilih menu: ");
+    private static void tampilkanPenerbangan() {
+        System.out.println("\n---------- DAFTAR PENERBANGAN ----------");
+        for (int i = 0; i < daftarPenerbangan.size(); i++) {
+            Pesawat p = daftarPenerbangan.get(i);
+            System.out.printf("%d. %s | %s | %s -> %s | %s | Rp%,.0f%n",
+                    (i + 1), p.getKodePenerbangan(), p.getMaskapai(),
+                    p.getAsal(), p.getTujuan(), p.getKelasLayanan(),
+                    p.hitungHargaTiket());
+        }
+        System.out.println("----------------------------------------");
     }
  
-    private static int bacaPilihanMenu() {
-    int pilihan = scanner.nextInt();
-    scanner.nextLine();
-    return pilihan;
-    }
- 
-    private static void prosesPemesananTiket() {
-        sistem.tampilkanDaftarPenerbangan();
-        System.out.print("\nPilih nomor penerbangan yang ingin dipesan: ");
-        int nomor;
-        nomor = scanner.nextInt();
+    private static void pesanTiket() {
+        tampilkanPenerbangan();
+        System.out.print("\nPilih nomor penerbangan: ");
+        int nomor = scanner.nextInt();
         scanner.nextLine();
  
-        Pesawat pesawatDipilih = sistem.getPenerbanganByIndex(nomor - 1);
-        if (pesawatDipilih == null) {
-            System.out.println("Nomor penerbangan tidak ditemukan.");
+        if (nomor < 1 || nomor > daftarPenerbangan.size()) {
+            System.out.println("Nomor penerbangan tidak ada!");
             return;
         }
+        Pesawat pesawatDipilih = daftarPenerbangan.get(nomor - 1);
  
-        System.out.print("Masukkan nama penumpang : ");
-        String nama = scanner.nextLine().trim();
-        System.out.print("Masukkan NIK            : ");
-        String nik = scanner.nextLine().trim();
-        System.out.print("Masukkan No. HP         : ");
-        String noHp = scanner.nextLine().trim();
+        System.out.print("Nama penumpang : ");
+        String nama = scanner.nextLine();
+        System.out.print("No. HP         : ");
+        String noHp = scanner.nextLine();
  
-        Penumpang penumpang = new Penumpang(nama, nik, noHp);
-        Tiket tiket = sistem.pesanTiket(penumpang, pesawatDipilih);
+        Penumpang penumpang = new Penumpang(nama, noHp);
+        Tiket tiket = new Tiket(penumpang, pesawatDipilih);
+        daftarTiket.add(tiket);
  
         System.out.println("\nPemesanan berhasil! Berikut e-tiket Anda:");
         tiket.cetakTiket();
     }
  
-    private static void prosesLihatDetailTiket() {
-        System.out.print("\nMasukkan kode tiket (contoh: TKT-1001): ");
-        String kode = scanner.nextLine().trim();
-        Tiket tiket = sistem.cariTiket(kode);
-        if (tiket == null) {
-            System.out.println("Tiket dengan kode " + kode + " tidak ditemukan.");
+    private static void tampilkanSemuaTiket() {
+        if (daftarTiket.isEmpty()) {
+            System.out.println("\nBelum ada tiket yang dipesan.");
             return;
         }
-        tiket.cetakTiket();
-    }
- 
-    private static void prosesBatalkanTiket() {
-        System.out.print("\nMasukkan kode tiket yang ingin dibatalkan: ");
-        String kode = scanner.nextLine().trim();
-        boolean berhasil = sistem.batalkanTiket(kode);
-        if (berhasil) {
-            System.out.println("Tiket " + kode + " berhasil dibatalkan.");
-        } else {
-            System.out.println("Tiket dengan kode " + kode + " tidak ditemukan.");
+        System.out.println("\n---------- DAFTAR TIKET ----------");
+        for (int i = 0; i < daftarTiket.size(); i++) {
+            Tiket t = daftarTiket.get(i);
+            System.out.printf("%d. %s | %s | %s | %s | Rp%,.0f%n",
+                    (i + 1), t.getKodeTiket(), t.getPenumpang().getNama(),
+                    t.getPesawat().getKodePenerbangan(),
+                    t.getPesawat().getKelasLayanan(),
+                    t.getPesawat().hitungHargaTiket());
         }
+        System.out.println("----------------------------------");
     }
 }
- 
